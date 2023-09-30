@@ -16,8 +16,7 @@ public class CategoryService {
     }
 
     public List<Category> findAllCategories(){
-        List<Category> list = repository.findAll();
-        return list;
+         return repository.findAll();
     }
 
     public Category findCategoryById(Long id) {
