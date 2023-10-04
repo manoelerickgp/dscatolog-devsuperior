@@ -1,5 +1,6 @@
 package com.project.dscatolog.resources;
 
+import com.project.dscatolog.dto.CategoryDTO;
 import com.project.dscatolog.entities.Category;
 import com.project.dscatolog.services.CategoryService;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ public class CategoryResource {
     }
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<Category>> findAllCategories(){
-        List<Category> list = service.findAllCategories();
+    public ResponseEntity<List<CategoryDTO>> findAllCategories(){
+        List<CategoryDTO> list = service.findAllCategories();
         return ResponseEntity.ok().body(list);
     }
 
