@@ -28,8 +28,8 @@ public class CategoryResource {
     }
 
     @GetMapping(value = "/findCategory/{id}")
-    public ResponseEntity<Category> findCategoryById(@PathVariable Long id) {
-        Category entity = service.findCategoryById(id);
+    public ResponseEntity<CategoryDTO> findCategoryById(@PathVariable Long id) {
+        CategoryDTO entity = service.findCategoryById(id);
         return ResponseEntity.ok().body(entity);
     }
 }
