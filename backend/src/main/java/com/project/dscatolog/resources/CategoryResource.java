@@ -3,11 +3,9 @@ package com.project.dscatolog.resources;
 import com.project.dscatolog.dto.CategoryDTO;
 import com.project.dscatolog.entities.Category;
 import com.project.dscatolog.services.CategoryService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +29,11 @@ public class CategoryResource {
     public ResponseEntity<CategoryDTO> findCategoryById(@PathVariable Long id) {
         CategoryDTO entity = service.findCategoryById(id);
         return ResponseEntity.ok().body(entity);
+    }
+
+    @PostMapping(value = "/save")
+    public ResponseEntity<CategoryDTO> insertCategory(@RequestBody CategoryDTO categoryDTO) {
+        categoryDTO = service.insert(categoryDTO);
+        return new ResponseEntity<>(categoryDTO, HttpStatus.CREATED);
     }
 }

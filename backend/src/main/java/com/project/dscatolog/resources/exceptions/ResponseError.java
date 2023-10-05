@@ -2,7 +2,6 @@ package com.project.dscatolog.resources.exceptions;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 public class ResponseError implements Serializable {
 

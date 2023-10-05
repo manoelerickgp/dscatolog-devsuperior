@@ -4,10 +4,11 @@ import com.project.dscatolog.dto.CategoryDTO;
 import com.project.dscatolog.entities.Category;
 import com.project.dscatolog.repositories.CategoryRepository;
 import com.project.dscatolog.services.exceptions.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class CategoryService {
@@ -27,5 +28,16 @@ public class CategoryService {
         Category category = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category Not Found"));
         return new CategoryDTO(category);
+    }
+
+    public CategoryDTO insert(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        copyDtoToEntity(category, categoryDTO);
+        category = repository.save(category);
+        return new CategoryDTO(category);
+    }
+
+    private void copyDtoToEntity(Category category, CategoryDTO categoryDTO){
+        category.setName(categoryDTO.getName());
     }
 }

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
-@ControllerAdvice // Essa anotação permite que esta classe(ResourceExceptionHandler) intercepte erros na camada de recursos(controller)
+// Essa anotação permite que esta classe(ResourceExceptionHandler) intercepte erros na camada de recursos(controller)
+@ControllerAdvice
 public class ResourceExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
