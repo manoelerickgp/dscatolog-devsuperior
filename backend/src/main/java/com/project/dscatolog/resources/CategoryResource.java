@@ -3,10 +3,13 @@ package com.project.dscatolog.resources;
 import com.project.dscatolog.dto.CategoryDTO;
 import com.project.dscatolog.entities.Category;
 import com.project.dscatolog.services.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -32,8 +35,15 @@ public class CategoryResource {
     }
 
     @PostMapping(value = "/save")
-    public ResponseEntity<CategoryDTO> insertCategory(@RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryDTO> insertCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
         categoryDTO = service.insert(categoryDTO);
-        return new ResponseEntity<>(categoryDTO, HttpStatus.CREATED);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoryDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(categoryDTO);
+    }
+
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long id,@RequestBody @Valid CategoryDTO categoryDTO) {
+        categoryDTO = service.update(id, categoryDTO);
+        return ResponseEntity.ok().body(categoryDTO);
     }
 }

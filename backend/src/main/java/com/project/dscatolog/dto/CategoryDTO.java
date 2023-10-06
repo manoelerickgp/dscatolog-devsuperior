@@ -1,10 +1,13 @@
 package com.project.dscatolog.dto;
 
 import com.project.dscatolog.entities.Category;
+import jakarta.validation.constraints.NotBlank;
 
 public class CategoryDTO {
 
     private Long id;
+
+    @NotBlank(message = "field 'name' cannot be null")
     private String name;
 
     public CategoryDTO() {

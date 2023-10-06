@@ -4,6 +4,7 @@ import com.project.dscatolog.dto.CategoryDTO;
 import com.project.dscatolog.entities.Category;
 import com.project.dscatolog.repositories.CategoryRepository;
 import com.project.dscatolog.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +36,18 @@ public class CategoryService {
         copyDtoToEntity(category, categoryDTO);
         category = repository.save(category);
         return new CategoryDTO(category);
+    }
+
+    public CategoryDTO update(Long id, CategoryDTO categoryDTO) {
+        try {
+            Category category = repository.getReferenceById(id);
+            copyDtoToEntity(category, categoryDTO);
+            category = repository.save(category);
+            return new CategoryDTO(category);
+        }
+        catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Category Id Not Found");
+        }
     }
 
     private void copyDtoToEntity(Category category, CategoryDTO categoryDTO){
