@@ -29,7 +29,7 @@ public class CategoryService {
 
     public CategoryDTO insert(CategoryDTO categoryDTO) {
         Category category = CategoryMapper.toCategory(categoryDTO);
-        return CategoryMapper.toCategoryDTO(category);
+        return CategoryMapper.toCategoryDTO(repository.save(category));
     }
 
     public CategoryDTO update(Long id, CategoryDTO categoryDTO) {

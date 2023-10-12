@@ -15,8 +15,11 @@ import java.util.List;
 @RequestMapping(value = "/categories")
 public class CategoryResource {
 
-    @Autowired
-    private CategoryService service;
+    private final CategoryService service;
+
+    public CategoryResource(CategoryService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<CategoryDTO>> findAllCategories(){
@@ -30,20 +33,20 @@ public class CategoryResource {
         return ResponseEntity.ok().body(entity);
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping
     public ResponseEntity<CategoryDTO> insertCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
         categoryDTO = service.insert(categoryDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoryDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(categoryDTO);
     }
 
-    @PutMapping(value = "/update/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long id,@RequestBody @Valid CategoryDTO categoryDTO) {
         categoryDTO = service.update(id, categoryDTO);
         return ResponseEntity.ok().body(categoryDTO);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
