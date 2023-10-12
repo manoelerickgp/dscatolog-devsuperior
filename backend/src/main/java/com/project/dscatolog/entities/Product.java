@@ -31,6 +31,9 @@ public class Product implements Serializable {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
 
+    @ManyToMany
+    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumns(name = "product_id"),
+        inverseJoinColumns = @JoinColumns(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     public Product() {
