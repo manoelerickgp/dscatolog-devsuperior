@@ -19,7 +19,7 @@ public class Product implements Serializable {
     @Column(nullable = true)
     private String name;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column

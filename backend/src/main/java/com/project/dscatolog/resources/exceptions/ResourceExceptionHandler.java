@@ -13,7 +13,6 @@ import java.time.Instant;
 
 // Essa anotação permite que esta classe(ResourceExceptionHandler) intercepte erros na camada de recursos(controller)
 @ControllerAdvice
-@RestControllerAdvice
 public class ResourceExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
