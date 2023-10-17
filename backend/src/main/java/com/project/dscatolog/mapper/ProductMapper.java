@@ -4,7 +4,6 @@ import com.project.dscatolog.dto.ProductDTO;
 import com.project.dscatolog.entities.Product;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProductMapper {
 
