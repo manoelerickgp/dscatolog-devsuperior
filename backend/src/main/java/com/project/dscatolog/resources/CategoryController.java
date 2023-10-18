@@ -3,7 +3,6 @@ package com.project.dscatolog.resources;
 import com.project.dscatolog.dto.CategoryDTO;
 import com.project.dscatolog.services.CategoryService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -13,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/categories")
-public class CategoryResource {
+public class CategoryController {
 
     private final CategoryService service;
 
-    public CategoryResource(CategoryService service) {
+    public CategoryController(CategoryService service) {
         this.service = service;
     }
 
