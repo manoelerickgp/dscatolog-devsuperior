@@ -4,7 +4,9 @@ import com.project.dscatolog.dto.CategoryDTO;
 import com.project.dscatolog.entities.Category;
 import com.project.dscatolog.mapper.CategoryMapper;
 import com.project.dscatolog.repositories.CategoryRepository;
+import com.project.dscatolog.services.exceptions.DatabaseIntegrityException;
 import com.project.dscatolog.services.exceptions.ResourceNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,12 +36,18 @@ public class CategoryService {
 
     public CategoryDTO update(Long id, CategoryDTO categoryDTO) {
             Category category = returnCategory(id);
-            CategoryMapper.updateCategoryData(category, categoryDTO);
+            category.setName(categoryDTO.getName());
+            //CategoryMapper.updateCategoryData(category, categoryDTO);
             return CategoryMapper.toCategoryDTO(repository.save(category));
     }
 
     public void delete(Long id) {
-        repository.delete(returnCategory(id));
+        try {
+            repository.delete(returnCategory(id));
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseIntegrityException("Integrity Violation");
+        }
     }
 
     private Category returnCategory(Long id) {

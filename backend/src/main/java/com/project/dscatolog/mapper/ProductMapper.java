@@ -1,5 +1,6 @@
 package com.project.dscatolog.mapper;
 
+import com.project.dscatolog.dto.CategoryDTO;
 import com.project.dscatolog.dto.ProductDTO;
 import com.project.dscatolog.entities.Product;
 
@@ -18,11 +19,11 @@ public class ProductMapper {
     }
 
     public static ProductDTO toProductDTO(Product product) {
-        return new ProductDTO(product);
+        return new ProductDTO(product, product.getCategories());
     }
 
     public static List<ProductDTO> toProductListDTO(List<Product> productList) {
-        return productList.stream().map(ProductDTO::new).toList();
+        return productList.stream().map(product -> new ProductDTO(product, product.getCategories())).toList();
     }
 
     public static void updateProductData(Product product, ProductDTO productDTO) {
