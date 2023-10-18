@@ -14,36 +14,36 @@ import java.util.List;
 @Service
 public class CategoryService {
 
-    private final CategoryRepository repository;
+    private final CategoryRepository categoryRepository;
 
     public CategoryService(CategoryRepository repository) {
-        this.repository = repository;
+        this.categoryRepository = repository;
     }
 
     public List<CategoryDTO> findAllCategories(){
-        return CategoryMapper.toCategoryDtoList(repository.findAll());
+        return CategoryMapper.toCategoryDtoList(categoryRepository.findAll());
     }
 
     public CategoryDTO findCategoryById(Long id) {
         Category category = returnCategory(id);
-        return CategoryMapper.toCategoryDTO(category);
+        return new CategoryDTO(category);
     }
 
     public CategoryDTO insert(CategoryDTO categoryDTO) {
         Category category = CategoryMapper.toCategory(categoryDTO);
-        return CategoryMapper.toCategoryDTO(repository.save(category));
+        return new CategoryDTO(categoryRepository.save(category));
     }
 
     public CategoryDTO update(Long id, CategoryDTO categoryDTO) {
             Category category = returnCategory(id);
             category.setName(categoryDTO.getName());
-            //CategoryMapper.updateCategoryData(category, categoryDTO);
-            return CategoryMapper.toCategoryDTO(repository.save(category));
+            category = categoryRepository.save(category);
+            return new CategoryDTO(category);
     }
 
     public void delete(Long id) {
         try {
-            repository.delete(returnCategory(id));
+            categoryRepository.delete(returnCategory(id));
         }
         catch (DataIntegrityViolationException e) {
             throw new DatabaseIntegrityException("Integrity Violation");
@@ -51,6 +51,6 @@ public class CategoryService {
     }
 
     private Category returnCategory(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category Not Found"));
+        return categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category Not Found"));
     }
 }

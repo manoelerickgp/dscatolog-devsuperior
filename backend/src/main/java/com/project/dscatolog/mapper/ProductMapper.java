@@ -2,11 +2,19 @@ package com.project.dscatolog.mapper;
 
 import com.project.dscatolog.dto.CategoryDTO;
 import com.project.dscatolog.dto.ProductDTO;
+import com.project.dscatolog.entities.Category;
 import com.project.dscatolog.entities.Product;
+import com.project.dscatolog.repositories.CategoryRepository;
 
 import java.util.List;
 
 public class ProductMapper {
+
+    private CategoryRepository categoryRepository;
+
+    public ProductMapper(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     public static Product toProduct(ProductDTO productDTO) {
         return Product.builder()
@@ -26,11 +34,4 @@ public class ProductMapper {
         return productList.stream().map(product -> new ProductDTO(product, product.getCategories())).toList();
     }
 
-    public static void updateProductData(Product product, ProductDTO productDTO) {
-        product.setName(productDTO.getName());
-        product.setDescription(productDTO.getDescription());
-        product.setPrice(productDTO.getPrice());
-        product.setImgUrl(productDTO.getImgUrl());
-        product.setDate(productDTO.getDate());
-    }
 }

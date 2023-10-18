@@ -21,7 +21,4 @@ public class CategoryMapper {
         return categoryList.stream().map(CategoryDTO::new).toList();
     }
 
-    public static void updateCategoryData(Category category ,CategoryDTO categoryDTO) {
-        category.setName(categoryDTO.getName());
-    }
 }
